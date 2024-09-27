@@ -4,19 +4,21 @@ import pandas as pd
 
 st.set_page_config(layout="wide")
 
-uploaded_file = st.file_uploader("Choose a file")
+uploaded_files = st.file_uploader("Choose a file", accept_multiple_files=True)
 
-if uploaded_file is not None:
-    st.write(f"""
-    # Arquivo: {uploaded_file.name}
-    """)
-    if uploaded_file.name[-3:] == 'csv':
-        dataframe = pd.read_csv(uploaded_file)
-        st.write(dataframe)
+for uploaded_file in uploaded_files:
+    if uploaded_file is not None:
+        st.write(f"""
+        # Arquivo: {uploaded_file.name}
+        """)
+        if uploaded_file.name[-3:] == 'csv':
+            dataframe = pd.read_csv(uploaded_file)
+            st.write(dataframe)
 
-    elif uploaded_file.name[-7:] == 'parquet':
-        dataframe = pd.read_parquet(uploaded_file)
-        st.write(dataframe)
+        elif uploaded_file.name[-7:] == 'parquet':
+            dataframe = pd.read_parquet(uploaded_file)
+            st.write(dataframe)
+
 
     
 
